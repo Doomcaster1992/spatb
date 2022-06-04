@@ -1,12 +1,79 @@
+<!DOCTYPE html>
 <html>
- <head>
- 	<title>12345 CSS</title>
-   <style>
-	body {
-		background: #000 url(quote-2022-06-04-d841d001f96c00d682a7946bcee7ea66.jpg); 
-		background-attachment: fixed; 
-		background-size: 100%
-	}
-   </style>
- </head>
- <body>
+<head>
+    <title>РџСЂС‹РіР°СЋС‰РёР№ РјСЏС‡</title>
+</head>
+
+<body>
+	<h1> Наташа, прикройся, срань господня </h1>	
+    <canvas id="canvas" width="1300" height="650"></canvas>
+
+    <script>
+    var Ball = function () {
+      this.x = 100;
+      this.y = 100;
+      this.xSpeed = (Math.random() * 10) - 5;
+      this.ySpeed = (Math.random() * 10) - 5;
+      this.color = ""
+    };
+
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    var circle = function (x, y, radius, fillCircle) {
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+      if (fillCircle) {
+        ctx.fill();
+      } else {
+        ctx.stroke();
+      }
+    color = ["yellow","black","green","pink","orange","blue", "red"];
+      i = Math.floor(Math.random() * 7)
+      ctx.fillStyle = color[i];
+    };
+
+    Ball.prototype.draw = function () {
+     circle(this.x, this.y, 3, true,this.fillStyle = "yellow");
+
+    };
+
+    Ball.prototype.move = function () {
+      this.x += this.xSpeed;
+      this.y += this.ySpeed;
+    };
+
+    Ball.prototype.checkCollision = function () {
+      if (this.x < 0 || this.x > width) {
+        this.xSpeed = -this.xSpeed;
+      }
+      if (this.y < 0 || this.y > height) {
+        this.ySpeed = -this.ySpeed;
+      }
+    };
+
+
+
+    var width = canvas.width;
+    var height = canvas.height;
+
+    var balls = [];
+    for (var i = 0; i < 1000; i++) {
+      balls[i] = new Ball();
+    }
+
+    setInterval(function () {
+      //ctx.clearRect(0, 0, width, height);
+
+      for (var i = 0; i < balls.length; i++) {
+        balls[i].draw();
+        balls[i].move();
+        balls[i].checkCollision();
+      }
+
+      ctx.strokeRect(0, 0, width, height);
+    }, 30);
+    </script>
+</body>
+</html>
+
